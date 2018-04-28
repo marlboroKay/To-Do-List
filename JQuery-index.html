@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Jquery To Do List</title>
+    <style type="text/css">
+    body{
+    	padding: 50px;
+    	background-color: #66ccff;
+    	font-family: sans-serif
+    }
+    .todoListMain .header input{
+    	padding: 10px;
+    	font-size: 16px;
+    	border: 2px solid #fff;
+    }
+    .todoListMain .header button{
+    	padding: 10px;
+    	font-size: 16px;
+    	margin: 10px;
+    	color: #fff;
+    	border:2px solid #0066FF;
+    	background-color: #0066ff;
+    }
+    .todoListMain .header button:hover{
+    	background-color: #003399;
+    	border: 2px solid #003399;
+    	cursor: pointer;
+    }
+    .todoListMain #todoList{
+    	list-style: none;
+    	padding-left: 0;
+    	width: 285px;
+    }
+    .todoListMain #todoList li{
+    	color: #333;
+    	background-color: rgba(255,255,255,0.5);
+    	padding: 15px;
+    	margin-bottom: 15px;
+    	border-radius: 5px;
+    }
+    .todoDelete{
+    	text-decoration: none;
+    	font-size: 16px;
+    	color: #0099ff
+    }
+    </style>
+</head>
+<body>
+	<div id="container">
+		<div class="todoListMain">
+			<div class="header">
+				<form action="" id="todoForm">
+					<input placeholder="请填写一个任务" id="todoInput"/>
+					<button type="submit">添加</button>
+				</form>
+				<p id="todoCount"></p>
+				<ol id="todoList"></ol>
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+	(function(){
+		var $todoForm = $('#todoForm');
+		var $todoInput = $('#todoInput');
+		var $todoList = $('#todoList');
+		var $todoCount = $('#todoCount');
+
+		function count(){
+			var len = $todoList.children().length;
+			$todoCount.html(len>0?'共'+len+'项todo list':'');
+		}
+		
+		$todoForm.submit(function(e){
+			var input_value = $todoInput.val();
+			$todoList.append('<li>'+input_value+'&nbsp;<a href="#" class="todoDelete">x</a></li>');
+			e.preventDefault();
+			count();
+		});
+		$todoList.on('click','.todoDelete',function(){
+			$(this).parent().remove();
+			count();
+		})
+	})();	
+	</script>
+</body>
+</html>
